@@ -1,3 +1,5 @@
+import 'package:_05_expense_tracker/widgets/utils/number_editing_controller.dart';
+import 'package:_05_expense_tracker/widgets/utils/number_field.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -11,7 +13,7 @@ class NewExpense extends StatefulWidget {
 
 class _NewExpense extends State<NewExpense> {
   final _titleController = TextEditingController();
-  final _amountController = TextEditingController();
+  final _amountController = NumberEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,7 @@ class _NewExpense extends State<NewExpense> {
             maxLength: 50,
             decoration: const InputDecoration(label: Text('Title')),
           ),
-          TextField(
-            controller: _amountController,
-            decoration: const InputDecoration(
-              label: Text('Amount'),
-              prefixText: '€ ',
-            ),
-            keyboardType: TextInputType.number,
-          ),
+          NumberField.amount(title: 'Amount', controller: _amountController),
           Row(
             children: [
               TextButton(
@@ -43,7 +38,8 @@ class _NewExpense extends State<NewExpense> {
               ElevatedButton(
                 onPressed: () {
                   print(_titleController.text);
-                  print(_amountController.text);
+                  print(_amountController.numberWithDecimal);
+                  print(_amountController.number);
                 },
                 child: const Text('Save expense'),
               ),
