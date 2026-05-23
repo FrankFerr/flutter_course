@@ -1,5 +1,7 @@
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
+final formatter = DateFormat.yMd('it_IT');
 const UUID = Uuid();
 
 enum Category { food, travel, leisure, work }
@@ -17,4 +19,8 @@ class Expense {
   final double amount;
   final DateTime date;
   final Category category;
+
+  String get formattedDate {
+    return formatter.format(date);
+  }
 }
