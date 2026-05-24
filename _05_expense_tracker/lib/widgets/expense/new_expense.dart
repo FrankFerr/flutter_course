@@ -26,9 +26,29 @@ class _NewExpense extends State<NewExpense> {
             maxLength: 50,
             decoration: const InputDecoration(label: Text('Title')),
           ),
-          NumberField.amount(
-            controller: _amountController,
-            decoration: const InputDecoration(label: Text('Amount')),
+          Row(
+            children: [
+              Expanded(
+                child: NumberField.amount(
+                  controller: _amountController,
+                  decoration: const InputDecoration(label: Text('Amount')),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Selected date'),
+                    IconButton(
+                      onPressed: _onPressedCalendarIcon,
+                      icon: const Icon(Icons.calendar_month),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           Row(
             children: [
@@ -58,5 +78,16 @@ class _NewExpense extends State<NewExpense> {
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
+  }
+
+  void _onPressedCalendarIcon() {
+    final DateTime now = DateTime.now();
+
+    showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: DateTime(now.year - 1),
+      lastDate: now,
+    );
   }
 }

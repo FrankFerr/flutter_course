@@ -16,6 +16,7 @@ class ExpenseItem extends StatelessWidget {
             Text(expense.title),
             const SizedBox(height: 6),
             Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('€ ${expense.amount.toStringAsFixed(2)}'),
                 const Spacer(),
