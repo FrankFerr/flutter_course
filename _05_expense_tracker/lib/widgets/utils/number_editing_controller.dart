@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class NumberEditingController extends TextEditingController {
-  int get number {
-    if (super.text.isEmpty) return -1;
+  int? get number {
+    if (super.text.isEmpty) return null;
 
-    int lenght = super.text.contains(',')
+    int length = super.text.contains(',')
         ? super.text.indexOf(',')
         : super.text.length;
 
-    return int.parse(super.text.substring(0, lenght));
+    return int.tryParse(super.text.substring(0, length));
   }
 
-  double get numberWithDecimal {
-    if (super.text.isEmpty) return -1;
+  double? get numberWithDecimal {
+    if (super.text.isEmpty) return null;
 
-    return double.parse(super.text.replaceFirst(',', '.'));
+    return double.tryParse(super.text.replaceFirst(',', '.'));
   }
 }
