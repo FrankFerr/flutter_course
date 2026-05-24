@@ -7,38 +7,25 @@ final TextInputFormatter _filterDecimal = FilteringTextInputFormatter.allow(
   RegExp(r'\d+,?\d*'),
 );
 
-class NumberField extends StatelessWidget {
+class NumberField extends TextField {
   NumberField({
-    required String title,
-    required NumberEditingController controller,
+    NumberEditingController? controller,
+    super.decoration,
     super.key,
-  }) : _title = title,
-       _controller = controller,
-       _prefix = null,
-       formatter = _filterNumber;
+  }) : super(
+         controller: controller,
+         inputFormatters: [_filterNumber],
+         keyboardType: TextInputType.number,
+       );
 
   NumberField.amount({
-    required String title,
-    required NumberEditingController controller,
-    String prefix = '€ ',
+    NumberEditingController? controller,
+    InputDecoration? decoration,
     super.key,
-  }) : _title = title,
-       _controller = controller,
-       _prefix = prefix,
-       formatter = _filterDecimal;
-
-  final String _title;
-  final TextEditingController _controller;
-  final String? _prefix;
-  final TextInputFormatter formatter;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      decoration: InputDecoration(label: Text(_title), prefixText: _prefix),
-      keyboardType: TextInputType.number,
-      inputFormatters: <TextInputFormatter>[formatter],
-    );
-  }
+  }) : super(
+         controller: controller,
+         inputFormatters: [_filterDecimal],
+         decoration: decoration?.copyWith(prefixText: '€ '),
+         keyboardType: TextInputType.number,
+       );
 }

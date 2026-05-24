@@ -26,7 +26,10 @@ class _NewExpense extends State<NewExpense> {
             maxLength: 50,
             decoration: const InputDecoration(label: Text('Title')),
           ),
-          NumberField.amount(title: 'Amount', controller: _amountController),
+          NumberField.amount(
+            controller: _amountController,
+            decoration: const InputDecoration(label: Text('Amount')),
+          ),
           Row(
             children: [
               TextButton(
