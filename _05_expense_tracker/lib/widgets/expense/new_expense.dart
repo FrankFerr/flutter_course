@@ -2,6 +2,7 @@ import 'package:_05_expense_tracker/widgets/utils/number_editing_controller.dart
 import 'package:_05_expense_tracker/widgets/utils/number_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:_05_expense_tracker/model/expense.dart';
 
 final formatter = DateFormat.yMd('it_IT');
 
@@ -18,6 +19,7 @@ class _NewExpense extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = NumberEditingController();
   DateTime? _selectedDate;
+  Category? category;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class _NewExpense extends State<NewExpense> {
       padding: const EdgeInsetsGeometry.all(16),
       child: Column(
         children: [
+          // Title TextField -------------------------->
           TextField(
             controller: _titleController,
             maxLength: 50,
@@ -32,6 +35,7 @@ class _NewExpense extends State<NewExpense> {
           ),
           Row(
             children: [
+              // Amount NumberField ---------------------------->
               Expanded(
                 child: NumberField.amount(
                   controller: _amountController,
@@ -39,6 +43,7 @@ class _NewExpense extends State<NewExpense> {
                 ),
               ),
               const SizedBox(width: 16),
+              // Date DatePicker ------------------------------->
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -58,14 +63,37 @@ class _NewExpense extends State<NewExpense> {
               ),
             ],
           ),
+          const SizedBox(height: 16),
           Row(
             children: [
+              // Category Dropdown ------------------------->
+              DropdownButton(
+                value: category,
+                items: Category.values
+                    .map(
+                      (category) => DropdownMenuItem<Category>(
+                        value: category,
+                        child: Text(category.name.toUpperCase()),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() {
+                      category = value;
+                    });
+                  }
+                },
+              ),
+              const Spacer(),
+              // Cancel Button ------------------------------->
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 child: const Text('Cancel'),
               ),
+              // Save Button ------------------------------->
               ElevatedButton(
                 onPressed: () {
                   print(_titleController.text);
