@@ -19,7 +19,7 @@ class _NewExpense extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = NumberEditingController();
   DateTime? _selectedDate;
-  Category? category;
+  Category? _category;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _NewExpense extends State<NewExpense> {
             children: [
               // Category Dropdown ------------------------->
               DropdownButton(
-                value: category,
+                value: _category,
                 items: Category.values
                     .map(
                       (category) => DropdownMenuItem<Category>(
@@ -80,7 +80,7 @@ class _NewExpense extends State<NewExpense> {
                 onChanged: (value) {
                   if (value != null) {
                     setState(() {
-                      category = value;
+                      _category = value;
                     });
                   }
                 },
@@ -95,11 +95,7 @@ class _NewExpense extends State<NewExpense> {
               ),
               // Save Button ------------------------------->
               ElevatedButton(
-                onPressed: () {
-                  print(_titleController.text);
-                  print(_amountController.numberWithDecimal);
-                  print(_amountController.number);
-                },
+                onPressed: _saveExpense,
                 child: const Text('Save expense'),
               ),
             ],
@@ -129,5 +125,36 @@ class _NewExpense extends State<NewExpense> {
     setState(() {
       _selectedDate = pickedDate;
     });
+  }
+
+  void _saveExpense() {
+    final bool isInvalid =
+        _titleController.text.trim().isEmpty ||
+        _amountController.numberWithDecimal == null ||
+        _amountController.numberWithDecimal! <= 0 ||
+        _selectedDate == null ||
+        _category == null;
+
+    if (isInvalid) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid data'),
+          content: const Text(
+            'Please, make sure a valid title, amount, date and category was entered',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay!'),
+            ),
+          ],
+        ),
+      );
+
+      return;
+    }
   }
 }

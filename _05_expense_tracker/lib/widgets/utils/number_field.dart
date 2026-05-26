@@ -26,14 +26,14 @@ class NumberField extends TextField {
          decoration: decoration?.copyWith(prefixText: '€ '),
          keyboardType: TextInputType.number,
        ) {
-    _numberDecimalsPattern = RegExp('^\\d+,?\\d{0,$decimals}\$');
+    _numberDecimalsPattern = RegExp('^\\d*,?\\d{0,$decimals}\$');
 
     inputFormatters!.add(
       const TextInputFormatter.withFunction(_formatDecimalNumberFunction),
     );
   }
 
-  static RegExp _numberDecimalsPattern = RegExp(r'^\d+,?\d*$');
+  static RegExp _numberDecimalsPattern = RegExp(r'^\d*,?\d*$');
 
   static TextEditingValue _formatDecimalNumberFunction(
     TextEditingValue oldValue,
