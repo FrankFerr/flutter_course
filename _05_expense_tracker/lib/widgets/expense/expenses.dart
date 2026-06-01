@@ -69,8 +69,27 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _onDissmissedExpense(int idx) {
+    final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+    Expense expenseDeleted = _registeredExpenses[idx];
+
     setState(() {
       _registeredExpenses.removeAt(idx);
     });
+
+    messenger.clearSnackBars();
+
+    messenger.showSnackBar(
+      SnackBar(
+        action: SnackBarAction(
+          label: 'undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(idx, expenseDeleted);
+            });
+          },
+        ),
+        content: Text('${expenseDeleted.title} expense successfully deleted'),
+      ),
+    );
   }
 }

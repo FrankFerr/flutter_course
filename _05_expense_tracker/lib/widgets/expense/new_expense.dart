@@ -29,6 +29,11 @@ class _NewExpense extends State<NewExpense> {
       padding: const EdgeInsetsGeometry.fromLTRB(16, 48, 16, 16),
       child: Column(
         children: [
+          // Form Title ---------------------------------->
+          Text(
+            'Add new expense',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           // Title TextField -------------------------->
           TextField(
             controller: _titleController,
