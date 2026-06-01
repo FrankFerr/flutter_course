@@ -80,6 +80,8 @@ class _ExpensesState extends State<Expenses> {
 
     messenger.showSnackBar(
       SnackBar(
+        persist: false,
+        duration: const Duration(seconds: 3),
         action: SnackBarAction(
           label: 'undo',
           onPressed: () {
