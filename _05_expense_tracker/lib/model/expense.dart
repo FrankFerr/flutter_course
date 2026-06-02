@@ -3,6 +3,11 @@ import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd('it_IT');
+final NumberFormat numberFormatter = NumberFormat.currency(
+  locale: 'it_IT',
+  name: 'EUR',
+  symbol: '€',
+);
 const UUID = Uuid();
 
 enum Category { food, travel, leisure, work }
@@ -29,6 +34,8 @@ class Expense {
   final Category category;
 
   String get formattedDate => formatter.format(date);
+
+  String get formattedAmount => numberFormatter.format(amount);
 
   Icon get categoryIcon => Icon(_categoryIcons[category]);
 }

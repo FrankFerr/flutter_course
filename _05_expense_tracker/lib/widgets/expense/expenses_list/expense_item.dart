@@ -19,7 +19,7 @@ class ExpenseItem extends StatelessWidget {
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('€ ${expense.amount.toStringAsFixed(2)}'),
+                Text(expense.formattedAmount),
                 const Spacer(),
                 Row(
                   children: [
