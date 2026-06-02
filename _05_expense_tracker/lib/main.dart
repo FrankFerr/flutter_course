@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:_05_expense_tracker/widgets/expense/expenses.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:_05_expense_tracker/theme/app_theme.dart';
 
 final kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 51, 182, 106),
+);
+
+final kDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 15, 96, 62),
+);
+
+AppTheme appTheme = AppTheme(
+  lightColorScheme: kColorScheme,
+  darkColorScheme: kDarkColorScheme,
 );
 
 void main() {
@@ -11,29 +22,8 @@ void main() {
     (_) => runApp(
       MaterialApp(
         home: const Expenses(),
-        theme: ThemeData().copyWith(
-          colorScheme: kColorScheme,
-          appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: kColorScheme.onPrimaryContainer,
-            foregroundColor: kColorScheme.primaryContainer,
-          ),
-          cardTheme: const CardThemeData().copyWith(
-            color: kColorScheme.secondaryContainer,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: kColorScheme.primaryContainer,
-            ),
-          ),
-          textTheme: ThemeData().textTheme.copyWith(
-            titleLarge: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: kColorScheme.onSecondaryContainer,
-              fontSize: 20,
-            ),
-          ),
-        ),
+        theme: appTheme.lightTheme,
+        darkTheme: appTheme.darkTheme,
       ),
     ),
   );
