@@ -61,17 +61,22 @@ class _ExpensesState extends State<Expenses> {
                 Expanded(child: mainContent),
               ],
             )
-          : Row(
-              children: [
-                Expanded(child: Chart(expenses: _registeredExpenses)),
-                Expanded(child: mainContent),
-              ],
+          : Padding(
+              padding: const EdgeInsets.only(left: 36.0),
+              child: Row(
+                children: [
+                  Expanded(child: Chart(expenses: _registeredExpenses)),
+                  Expanded(child: mainContent),
+                ],
+              ),
             ),
     );
   }
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      constraints: const BoxConstraints(),
+      useSafeArea: true,
       isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(onSaved: _onSavedExpense),

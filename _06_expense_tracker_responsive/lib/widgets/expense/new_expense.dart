@@ -31,7 +31,7 @@ class _NewExpense extends State<NewExpense> {
       height: double.infinity,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsetsGeometry.fromLTRB(16, 48, 16, keyboardSpace + 16),
+          padding: EdgeInsetsGeometry.fromLTRB(16, 16, 16, keyboardSpace + 16),
           child: Column(
             children: [
               // Form Title ---------------------------------->
