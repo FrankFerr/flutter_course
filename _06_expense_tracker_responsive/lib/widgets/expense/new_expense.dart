@@ -27,95 +27,35 @@ class _NewExpense extends State<NewExpense> {
   Widget build(BuildContext context) {
     final double keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
 
-    return SizedBox(
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsetsGeometry.fromLTRB(16, 16, 16, keyboardSpace + 16),
-          child: Column(
-            children: [
-              // Form Title ---------------------------------->
-              Text(
-                'Add new expense',
-                style: Theme.of(context).textTheme.titleLarge,
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsetsGeometry.fromLTRB(
+                16,
+                16,
+                16,
+                keyboardSpace + 16,
               ),
-              // Title TextField -------------------------->
-              TextField(
-                controller: _titleController,
-                maxLength: 50,
-                decoration: const InputDecoration(label: Text('Title')),
-              ),
-              Row(
+              child: Column(
                 children: [
-                  // Amount NumberField ---------------------------->
-                  Expanded(
-                    child: NumberField.amount(
-                      controller: _amountController,
-                      decoration: const InputDecoration(label: Text('Amount')),
-                    ),
+                  // Form Title ---------------------------------->
+                  Text(
+                    'Add new expense',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const SizedBox(width: 16),
-                  // Date DatePicker ------------------------------->
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          _selectedDate == null
-                              ? 'No date selected'
-                              : formatter.format(_selectedDate!),
-                        ),
-                        IconButton(
-                          onPressed: _onPressedCalendarIcon,
-                          icon: const Icon(Icons.calendar_month),
-                        ),
-                      ],
-                    ),
-                  ),
+                  if (constraints.maxWidth > 600)
+                    ...getLandscapeLayout()
+                  else
+                    ...getPortraitLayout(),
                 ],
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  // Category Dropdown ------------------------->
-                  DropdownButton(
-                    value: _category,
-                    items: Category.values
-                        .map(
-                          (category) => DropdownMenuItem<Category>(
-                            value: category,
-                            child: Text(category.name.toUpperCase()),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          _category = value;
-                        });
-                      }
-                    },
-                  ),
-                  const Spacer(),
-                  // Cancel Button ------------------------------->
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel'),
-                  ),
-                  // Save Button ------------------------------->
-                  ElevatedButton(
-                    onPressed: _saveExpense,
-                    child: const Text('Save expense'),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -181,5 +121,170 @@ class _NewExpense extends State<NewExpense> {
     widget.onSaved(newExpense);
 
     Navigator.pop(context);
+  }
+
+  List<Widget> getLandscapeLayout() {
+    return [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Title TextField -------------------------->
+          Expanded(
+            child: TextField(
+              controller: _titleController,
+              maxLength: 50,
+              decoration: const InputDecoration(label: Text('Title')),
+            ),
+          ),
+          const SizedBox(width: 16),
+          // Amount NumberField ---------------------------->
+          Expanded(
+            child: NumberField.amount(
+              controller: _amountController,
+              decoration: const InputDecoration(label: Text('Amount')),
+            ),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          // Category Dropdown ------------------------->
+          DropdownButton(
+            value: _category,
+            items: Category.values
+                .map(
+                  (category) => DropdownMenuItem<Category>(
+                    value: category,
+                    child: Text(category.name.toUpperCase()),
+                  ),
+                )
+                .toList(),
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
+                  _category = value;
+                });
+              }
+            },
+          ),
+          // Date DatePicker ------------------------------->
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  _selectedDate == null
+                      ? 'No date selected'
+                      : formatter.format(_selectedDate!),
+                ),
+                IconButton(
+                  onPressed: _onPressedCalendarIcon,
+                  icon: const Icon(Icons.calendar_month),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Cancel Button ------------------------------->
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+          const SizedBox(width: 12),
+          // Save Button ------------------------------->
+          ElevatedButton(
+            onPressed: _saveExpense,
+            child: const Text('Save expense'),
+          ),
+        ],
+      ),
+    ];
+  }
+
+  List<Widget> getPortraitLayout() {
+    return [
+      // Title TextField -------------------------->
+      TextField(
+        controller: _titleController,
+        maxLength: 50,
+        decoration: const InputDecoration(label: Text('Title')),
+      ),
+      Row(
+        children: [
+          // Amount NumberField ---------------------------->
+          Expanded(
+            child: NumberField.amount(
+              controller: _amountController,
+              decoration: const InputDecoration(label: Text('Amount')),
+            ),
+          ),
+          const SizedBox(width: 16),
+          // Date DatePicker ------------------------------->
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  _selectedDate == null
+                      ? 'No date selected'
+                      : formatter.format(_selectedDate!),
+                ),
+                IconButton(
+                  onPressed: _onPressedCalendarIcon,
+                  icon: const Icon(Icons.calendar_month),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 16),
+      Row(
+        children: [
+          // Category Dropdown ------------------------->
+          DropdownButton(
+            value: _category,
+            items: Category.values
+                .map(
+                  (category) => DropdownMenuItem<Category>(
+                    value: category,
+                    child: Text(category.name.toUpperCase()),
+                  ),
+                )
+                .toList(),
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
+                  _category = value;
+                });
+              }
+            },
+          ),
+          const Spacer(),
+          // Cancel Button ------------------------------->
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+          const SizedBox(width: 12),
+          // Save Button ------------------------------->
+          ElevatedButton(
+            onPressed: _saveExpense,
+            child: const Text('Save expense'),
+          ),
+        ],
+      ),
+    ];
   }
 }
