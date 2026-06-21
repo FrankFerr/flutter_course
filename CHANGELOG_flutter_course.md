@@ -73,11 +73,11 @@ Versione evoluta/riorganizzata del progetto quiz, creata insieme alla rinominazi
 
 - Inizializzazione del progetto, basato sulla struttura completa di `_05_expense_tracker` (modello spese, widget chart, lista spese, form nuova spesa, ecc.).
 - Aggiornato `analysis_options.yaml` con regole di lint per suggerire l'utilizzo del const (prefer_const_...) e soppresso l'errore per il nome delle costanti.
-- Refactor della funzione `main`: utilizzo di `WidgetsFlutterBinding.ensureInitialized()` per inizializzare il binding tra Flutter e l'SO utile per utilizzare `SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])` (`package:flutter/services.dart`) per bloccare il layout in Portrait mode (codice commentato, serve solo come esempio). Uso di `async`/`await` per l'inizializzazione della formattazione delle date.
+- Refactor della funzione `main`: utilizzo di `WidgetsFlutterBinding.ensureInitialized()` per inizializzare il binding tra Flutter e l'S.O. utile per utilizzare `SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])` (`package:flutter/services.dart`) per bloccare il layout in Portrait mode (codice commentato, serve solo come esempio). Uso di `async`/`await` per l'inizializzazione della formattazione delle date.
 - Refactor del widget `Expenses` per migliorare la gestione del `mainContent` e semplificare il metodo `build`.
 - Refactor del layout del widget `Expenses` per adattarsi alla larghezza dello schermo (logica responsive) utilizzando la classe `MediaQuery` (`MediaQuery.of(context)`).
 - Abilitato l'inserimento di una nuova spesa anche in modalità landscape "*avvolgendo*" i Widgets all'interno di un `SingleChildScrollView` per rendere il `ModalBottomSheet` scrollabile dal momento che in landscape la tastiera coprirebbe gran parte dei campi. Per poter attivare lo scroll si è dovuto alzare il margine inferiore, del `ModalBottomSheet`, della grandezza della tastiera, grandezza ottenuta con `MediaQuery.of(context).viewInsets.bottom`
-- Settato il parametro `useSafeArea` a `true` nel metodo `showModalBottomSheet` per sistemare il margine superiore della modale in modo che non venga coperata dalle periferiche e dalla UI dell'SO (camera + simboli wifi, batteria, sveglia, ecc...)
+- Settato il parametro `useSafeArea` a `true` nel metodo `showModalBottomSheet` per sistemare il margine superiore della modale in modo che non venga coperata dalle periferiche e dalla UI del dispositivo (camera + simboli wifi, batteria, sveglia, ecc...)
 - Utilizzato il Widget `LayoutBuilder` per gestire meglio la scelta del layout da mostrare (Portrait o Landscape)
 
 ---
