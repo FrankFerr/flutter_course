@@ -40,7 +40,7 @@ Versione evoluta/riorganizzata del progetto quiz, creata insieme alla rinominazi
 
 - Inizializzazione del progetto.
 - Aggiunte regole di linting personalizzate (`analysis_options.yaml`).
-- Implementata una `ListView` per mostrare l'elenco delle spese.
+- Implementata una `ListView` per mostrare l'elenco delle spese, settando la proprietà `key` di ogni item nella lista con la classe `ValueKey`.
 - Refactor della struttura delle cartelle (introduzione di `widgets/`).
 - Creato il widget `ExpenseItem` e aggiornati i path di import nei test.
 - Aggiunto il package `intl` e implementata la formattazione delle date.
