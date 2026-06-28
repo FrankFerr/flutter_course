@@ -82,6 +82,14 @@ Versione evoluta/riorganizzata del progetto quiz, creata insieme alla rinominazi
 
 ---
 
+## `_08_meals`
+*Creato il 28/06/2026*
+
+- Inizializzazione del progetto.
+- Creato la prima schermata (`CategoriesScreen`) utilizzando un layout a griglia con `GridView()` (non ci interessa utilizzare `GridView.buildert()` per renderizzare solo gli oggetti visibili dal momento che non avremmo una lista lunghissima di celle da mostrare). La classe `SliverGridDelegateWithFixedCrossAxisCount` ci aiuta a organizzare e disporre le celle nella griglia
+
+---
+
 ## File a livello di repository
 
 - **README.md**: aggiunto con il commit iniziale della repo.
